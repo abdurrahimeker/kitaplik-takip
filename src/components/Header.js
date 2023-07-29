@@ -5,16 +5,14 @@ const Header = () => {
   return (
     <div className="header">
       <h1>
-        <Link to="/">home</Link>
+        <Link className="link" to="/BookAdd">
+          <button>Kitap ekle</button>
+        </Link>
       </h1>
       <h1>
-        <Link to="/BookAdd">BookAdd</Link>
-      </h1>
-      <h1>
-        <Link to="/BookDetails">BookDetails</Link>
-      </h1>
-      <h1>
-        <Link to="/BookList">BookList</Link>
+        <Link className="link" to="/BookList">
+          <button>Kitap Listesi</button>
+        </Link>
       </h1>
     </div>
   )

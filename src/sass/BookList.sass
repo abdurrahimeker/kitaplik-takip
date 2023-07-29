@@ -1,25 +1,76 @@
-// KitapListesi.sass
+// Renk değişkenleri
+$primary-color: #34424b
+$secondary-color: #ffffff
+$border-color: #ddd
+$placeholder-color: #888
+$text-color: #34424b
+$font-size: 16px
 
-.kitap-listesi-container
-  margin: 0 auto
+.kitap-listesi-container 
+  margin: 50px auto
+  max-width: 90%
+  background-color: $primary-color
+  color: $secondary-color
   padding: 20px
-  border: 1px solid #ddd
   border-radius: 5px
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1)
-  background-color: #fff
+  height: 450px
+  overflow-y: auto
 
-  .kitap-table
+  .back 
+    background-color: $primary-color
+    color: $secondary-color
+    border: none
+    padding: 10px 20px
+    cursor: pointer
+    border-radius: 3px
+    position: absolute
+    z-index: 999
+    display: flex
+    justify-content: center
+    top: 10px
+
+    &:hover 
+      opacity: 0.9
+    
+  
+
+  h2 
+    text-align: center
+  
+
+  .kitap-table 
     width: 100%
     border-collapse: collapse
+    margin-top: 20px
 
-    th, td
+    th,
+    td 
       padding: 10px
       text-align: left
-      border-bottom: 1px solid #ddd
-      cursor: pointer
+      border-bottom: 1px solid $border-color
 
-    th
-      background-color: #f2f2f2
+      th 
+        background-color: $secondary-color
+        color: $text-color
+        font-weight: bold
+      
 
-    tr:hover
-      background-color: #f9f9f9
+      tr:hover 
+        background-color: #f9f9f9
+  // Search Bar Stili
+  .search-input 
+    width: 200px
+    padding: 10px
+    border: 1px solid $border-color
+    border-radius: 5px
+    margin-bottom: 10px
+    color: $text-color
+    font-size: $font-size
+    position: absolute
+    top: 70px
+
+    &::placeholder 
+      color: $placeholder-color
+    
+  
+

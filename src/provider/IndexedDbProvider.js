@@ -12,7 +12,7 @@ class IndexedDbProvider {
 
       request.onupgradeneeded = (event) => {
         const db = event.target.result
-        db.createObjectStore('dataStore', {
+        db.createObjectStore('booksData', {
           keyPath: 'id',
           autoIncrement: true,
         })
@@ -25,49 +25,48 @@ class IndexedDbProvider {
     })
   }
 
-  allData() {
-    return new Promise((resolve, reject) => {
-      IndexedDbProvider.openDB()
-        .then((db) => {
-          const transaction = db.transaction(['dataStore'], 'readonly')
-          const objectStore = transaction.objectStore('dataStore')
-          const request = objectStore.getAll()
+  async allData() {
+    try {
+      const db = await this.openDB()
+      const transaction = db.transaction(['booksData'], 'readonly')
+      const objectStore = transaction.objectStore('booksData')
+      const request = objectStore.getAll()
 
-          request.onsuccess = (event) => {
-            resolve(event.target.result)
-          }
+      return new Promise((resolve, reject) => {
+        request.onsuccess = (event) => {
+          resolve(event.target.result)
+        }
 
-          request.onerror = (event) => {
-            reject('Veriler alınırken bir hata oluştu.')
-          }
-        })
-        .catch((error) => {
-          reject(error)
-        })
-    })
+        request.onerror = (event) => {
+          reject('Veriler alınırken bir hata oluştu.')
+        }
+      })
+    } catch (error) {
+      return Promise.reject(error)
+    }
   }
 
-  addData(data) {
-    return new Promise((resolve, reject) => {
-      IndexedDbProvider.openDB()
-        .then((db) => {
-          const transaction = db.transaction(['dataStore'], 'readwrite')
-          const objectStore = transaction.objectStore('dataStore')
+  async addData(data) {
+    console.log(data)
+    try {
+      const db = await this.openDB()
+      const transaction = db.transaction(['booksData'], 'readwrite')
+      const objectStore = transaction.objectStore('booksData')
 
-          const addRequest = objectStore.add(data)
+      return new Promise((resolve, reject) => {
+        const addRequest = objectStore.add(data)
 
-          addRequest.onsuccess = (event) => {
-            resolve('Veri başarıyla eklendi.')
-          }
+        addRequest.onsuccess = (event) => {
+          resolve('Veri başarıyla eklendi.')
+        }
 
-          addRequest.onerror = (event) => {
-            reject('Veri eklenirken bir hata oluştu.')
-          }
-        })
-        .catch((error) => {
-          reject(error)
-        })
-    })
+        addRequest.onerror = (event) => {
+          reject('Veri eklenirken bir hata oluştu.')
+        }
+      })
+    } catch (error) {
+      return Promise.reject(error)
+    }
   }
 }
 
