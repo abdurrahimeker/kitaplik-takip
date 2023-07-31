@@ -1,13 +1,11 @@
 import React from 'react'
+import { Link, useLocation } from 'react-router-dom'
 
-const BookDetails = ({ booksSelect }) => {
-  booksSelect = {
-    isim: 'test',
-    yazar: 'test',
-    rafNo: 2,
-    siraNo: 2,
-    stok: 2,
-  }
+const BookDetails = () => {
+  const location = useLocation()
+  const { booksSelect } = location.state
+  console.log(booksSelect)
+
   return (
     <div className="book-details-container">
       <h2>Kitap İsmi</h2>

@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import { AiOutlineArrowLeft } from 'react-icons/ai'
 import IndexedDbProvider from '../provider/IndexedDbProvider'
+import BookDetails from './BookDetails'
 
 const BookList = () => {
   const [dataList, setDataList] = useState([])
   const [searchTerm, setSearchTerm] = useState('')
+  const navigate = useNavigate()
 
   useEffect(() => {
     IndexedDbProvider.allData()
@@ -20,6 +22,20 @@ const BookList = () => {
   const handleSearchInputChange = (event) => {
     setSearchTerm(event.target.value)
   }
+
+  const handleClick = (kitap) => {
+    console.log(kitap)
+    navigate('/BookDetails', { state: { booksSelect: kitap } })
+    // return (
+    //   <Link
+    //     to="/BookDetails"
+    //     state={{
+    //       booksSelect: kitap,
+    //     }}
+    //   />
+    // )
+  }
+  window.handleClick = handleClick
 
   return (
     <div className="kitap-listesi-container">
@@ -57,7 +73,7 @@ const BookList = () => {
                 .includes(searchTerm.toLowerCase()),
             )
             .map((kitap, i) => (
-              <tr key={i} onClick={() => {}}>
+              <tr key={i} onClick={() => handleClick(kitap)}>
                 <td>{i + 1}</td>
                 <td>{kitap.isim}</td>
                 <td>{kitap.yazar}</td>
